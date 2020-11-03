@@ -1,0 +1,195 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{font-size:11.0pt;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='text-justify-trim:punctuation'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><b><span lang=EN>ESP32 project:                over_temp_email_alert</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>This priject started out with the Random Nerd Tutorial
+(adapted to print degrees F) </span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN><a
+href="https://randomnerdtutorials.com/esp32-email-alert-temperature-threshold/"><span
+style='color:blue'>https://RandomNerdTutorials.com/esp32-email-alert-temperature-threshold/</span></a></span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>This project works very well.  It has a nice web interface
+(shown below) which not only displays the current temperature, but also allows
+convenient modification of  some of the 'email notification' parameters.  This
+sure beats having to upload new firmware just to make a small adjustment in
+temperature threshold, for example.</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>************* Web Interface Below ******************</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN><img border=0 width=358 height=254
+src="summary_files/image001.png"></span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>************* Web Interface Above ******************</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>Next, I wrote <b>collect_data.py</b>, a python program
+running on a Raspberry Pi on my lan, which</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>collects these temperature readings N times / hr,</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>writes out time, temperature data into a daily .csv
+file, and </span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>saves  the files into a folder structure which is
+created on the fly (as below).</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>year2020/</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>                \/</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>                month9/</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>                                \/</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>                                day20.csv</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>The Raspberry Pi computer is also a samba server, so by putting
+the temperature data inside the /share folder,  it can be accessed by any
+computer on the LAN.</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>One way to display temperatures is to navigate to a
+particular file of interest and open it in Excel and then plot the data, as
+below:</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN><img border=0 width=479 height=287
+src="summary_files/image002.png"></span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>A slicker way to do it is to run the program
+'temp_by_date.py' which presents a pyqt5 calendar widget. By clicking on a date
+in the calendar, a plot of the temperatures for that date is dispalyed.</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN><img border=0 width=333 height=306
+src="summary_files/image003.png"></span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>The plot below was generated by clicking twice, first on
+Nov 2, then on Nov 3. The temperatures for both days are plotted together in
+two colors.</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN><img border=0 width=576 height=491
+src="summary_files/image004.jpg"></span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><b><span lang=EN>Summary:</span></b></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:normal;text-autospace:
+none'><span lang=EN>To clarify the architectural configuration of this project,
+it is distributed over 3 separate devices on my LAN:</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>1.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>The ESP32 device, which measures the temperature
+(and sends me an email alert in case of an over temperature condition)</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>2.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>A Raspberry Pi computer which collects temperature
+data from the ESP32 (n times per hour) and saves it to a file in a folder
+accesible on the LAN</span></p>
+
+<p class=MsoNormal style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;
+margin-left:.5in;text-indent:-.25in;line-height:normal;text-autospace:none'><span
+lang=EN>3.<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span><span lang=EN>My laptop computer, on which I can run the program
+'temp_by_date.py' to display the temps for any date selected, simply by
+clicking on the calendar date of interest.</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+<p class=MsoNormal style='margin-bottom:10.0pt;line-height:115%;text-autospace:
+none'><span lang=EN>&nbsp;</span></p>
+
+</div>
+
+</body>
+
+</html>
