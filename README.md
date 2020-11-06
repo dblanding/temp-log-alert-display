@@ -12,9 +12,7 @@ I have a Raspberry Pi on my LAN running the Python program **collect_data.py**, 
 * saves the files into a folder structure which is created on the fly (as below).
 
 
-* year2020/
- * month9/
-   * day20.csv
+> year2020/month11/day3.csv
   
 The Raspberry Pi computer is also set up as a samba server, so by putting the temperature data inside the /share folder,  it can be accessed by any computer on the LAN.
 ### Data Display
