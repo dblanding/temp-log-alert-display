@@ -6,13 +6,13 @@ following a [Random Nerd Tutorial](https://RandomNerdTutorials.com/esp32-email-a
 >![ESP32 web interface](images/webIF.png)
 
 ### Data Collection and Archiving
-I have a Raspberry Pi on my LAN running the Python program **collect_data.py**, which
+I have a Raspberry Pi on my LAN running the Python program **collect_data.py** which
 * collects temperature readings from the ESP32 six times per hr
 * writes out collected time, temperature data into a .csv file daily
-* saves the files into a folder structure which is created on the fly (as below).
+* saves the files into a folder structure (as below) which is created on the fly.
 
 
-> year2020/month11/day3.csv
+> **year2020/month11/day3.csv**
   
 The Raspberry Pi computer is also set up as a samba server, so by putting the temperature data inside the /share folder,  it can be accessed by any computer on the LAN.
 ### Data Display
