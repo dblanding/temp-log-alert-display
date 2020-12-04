@@ -16,7 +16,7 @@ import time
 # Specify N = one of these integer numbers: 1,2,3,4,5,6,10,12,15,20,30,60
 N = 10  # Number of readings (intervals) per hour
 
-URL = "REPLACE_WITH_URL_OF_ESP32"  # URL of ESP32
+URL = "http://192.168.1.71"  # URL of ESP32
 data_file = None
 interval = 60 // N  # minutes
 print('Data collected at %s minute intervals' % interval)
@@ -30,14 +30,22 @@ def secondsUntilNextReading():
     return (interval - (flt_min % interval)) * 60
 
 def getTemperature(url):
-    r = requests.get(url)
-    status_code = vars(r)['status_code']
-    print('Getting data from server. Status code: %s' % status_code)
-    text = r.text
-    # 7th line of the text
-    line = text.split('\n')[6]
-    # 2nd 'word' in the line
-    return line.split()[1]
+    try:
+        r = requests.get(url, timeout=5)
+    except OSError as e:
+        r = None
+        print(e)
+    if r:
+        status_code = vars(r)['status_code']
+        print('Getting data from server. Status code: %s' % status_code)
+        text = r.text
+        # 7th line of the text
+        line = text.split('\n')[6]
+        # 2nd 'word' in the line
+        str_temp = line.split()[1]
+    else:
+        str_temp = '0'
+    return str_temp
 
 def set_data_file(now):
     global data_file
